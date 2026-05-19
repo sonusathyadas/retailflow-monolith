@@ -1,0 +1,69 @@
+using System.Data.Entity;
+using RetailFlow.Domain.Entities;
+
+namespace RetailFlow.Infrastructure.Data
+{
+    /// <summary>
+    /// Entity Framework 6 DbContext for SQL Server.
+    /// Covers Identity, Orders, Payments, and Inventory modules.
+    /// </summary>
+    public class RetailFlowDbContext : DbContext
+    {
+        public RetailFlowDbContext() : base("name=RetailFlowDb")
+        {
+            // Disable lazy loading to avoid N+1 issues; use explicit Include() instead
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+        }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // User → Role (many-to-one)
+            modelBuilder.Entity<User>()
+                .HasRequired(u => u.Role)
+                .WithMany()
+                .HasForeignKey(u => u.RoleId)
+                .WillCascadeOnDelete(false);
+
+            // Order → User (many-to-one)
+            modelBuilder.Entity<Order>()
+                .HasRequired(o => o.User)
+                .WithMany()
+                .HasForeignKey(o => o.UserId)
+                .WillCascadeOnDelete(false);
+
+            // OrderItem → Order (many-to-one)
+            modelBuilder.Entity<OrderItem>()
+                .HasRequired(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId)
+                .WillCascadeOnDelete(true);
+
+            // Payment → Order (one-to-one)
+            modelBuilder.Entity<Payment>()
+                .HasRequired(p => p.Order)
+                .WithMany()
+                .HasForeignKey(p => p.OrderId)
+                .WillCascadeOnDelete(false);
+
+            // Unique index on User.Email
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            // Unique index on Inventory.ProductId
+            modelBuilder.Entity<Inventory>()
+                .HasIndex(i => i.ProductId)
+                .IsUnique();
+        }
+    }
+}

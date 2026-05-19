@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Security.Claims;
+using System.Web.Http;
+using RetailFlow.Application.DTOs;
+using RetailFlow.Application.Services;
+using RetailFlow.Shared.Models;
+
+namespace RetailFlow.API.Controllers
+{
+    /// <summary>
+    /// Order lifecycle management. Orders are stored in SQL Server.
+    /// </summary>
+    [RoutePrefix("api/orders")]
+    [Authorize]
+    public class OrdersController : ApiController
+    {
+        private readonly IOrderService _orderService;
+
+        public OrdersController(IOrderService orderService)
+        {
+            _orderService = orderService;
+        }
+
+        private int CurrentUserId =>
+            int.Parse(((ClaimsPrincipal)User).FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+
+        /// <summary>Create a new order from the provided items.</summary>
+        [HttpPost, Route("")]
+        public IHttpActionResult CreateOrder([FromBody] CreateOrderRequest request)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            try
+            {
+                var order = _orderService.CreateOrder(CurrentUserId, request);
+                return Content(HttpStatusCode.Created, ApiResponse<OrderDto>.Ok(order, "Order created."));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return Content(HttpStatusCode.UnprocessableEntity,
+                    ApiErrorResponse.Create("PRODUCT_NOT_FOUND", ex.Message));
+            }
+        }
+
+        /// <summary>Get order details by ID.</summary>
+        [HttpGet, Route("{id:int}")]
+        public IHttpActionResult GetOrder(int id)
+        {
+            var order = _orderService.GetById(id);
+            if (order == null) return NotFound();
+            return Ok(ApiResponse<OrderDto>.Ok(order));
+        }
+
+        /// <summary>Get all orders for a specific user. Admins can query any user.</summary>
+        [HttpGet, Route("user/{userId:int}")]
+        public IHttpActionResult GetUserOrders(int userId)
+        {
+            // Customers can only see their own orders
+            if (!User.IsInRole("Admin") && CurrentUserId != userId)
+                return StatusCode(HttpStatusCode.Forbidden);
+
+            var orders = _orderService.GetByUserId(userId);
+            return Ok(ApiResponse<IEnumerable<OrderDto>>.Ok(orders));
+        }
+
+        /// <summary>Cancel an order.</summary>
+        [HttpPost, Route("{id:int}/cancel")]
+        public IHttpActionResult CancelOrder(int id)
+        {
+            try
+            {
+                var order = _orderService.CancelOrder(id, CurrentUserId);
+                return Ok(ApiResponse<OrderDto>.Ok(order, "Order cancelled."));
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return StatusCode(HttpStatusCode.Forbidden);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Content(HttpStatusCode.Conflict,
+                    ApiErrorResponse.Create("CANNOT_CANCEL", ex.Message));
+            }
+        }
+    }
+}

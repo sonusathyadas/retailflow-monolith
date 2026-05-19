@@ -1,0 +1,72 @@
+﻿using System;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using Serilog;
+
+namespace RetailFlow.Messaging.Consumers
+{
+    /// <summary>
+    /// Base class for RabbitMQ consumers.
+    /// Handles connection setup, queue binding, and message deserialization.
+    /// </summary>
+    public abstract class BaseConsumer<T> : IDisposable where T : class
+    {
+        private readonly IConnection _connection;
+        private readonly IChannel _channel;
+        private const string ExchangeName = "retailflow.events";
+        private static readonly ILogger _log = Log.ForContext<BaseConsumer<T>>();
+
+        protected BaseConsumer(string connectionString, string queueName)
+        {
+            var factory = new ConnectionFactory { Uri = new Uri(connectionString) };
+            _connection = factory.CreateConnectionAsync().GetAwaiter().GetResult();
+            _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
+
+            _channel.ExchangeDeclareAsync(ExchangeName, ExchangeType.Topic, durable: true).GetAwaiter().GetResult();
+
+            // Declare a durable queue with dead-letter exchange support
+            var args = new System.Collections.Generic.Dictionary<string, object>
+            {
+                { "x-dead-letter-exchange", ExchangeName + ".dlx" }
+            };
+            _channel.QueueDeclareAsync(queueName, durable: true, exclusive: false, autoDelete: false, arguments: args).GetAwaiter().GetResult();
+            _channel.QueueBindAsync(queueName, ExchangeName, typeof(T).Name).GetAwaiter().GetResult();
+
+            // Prefetch 1 for fair dispatch
+            _channel.BasicQosAsync(0, 1, false).GetAwaiter().GetResult();
+
+            var consumer = new AsyncEventingBasicConsumer(_channel);
+            consumer.ReceivedAsync += async (sender, ea) =>
+            {
+                try
+                {
+                    var json = Encoding.UTF8.GetString(ea.Body.ToArray());
+                    var message = JsonConvert.DeserializeObject<T>(json);
+                    Handle(message);
+                    await _channel.BasicAckAsync(ea.DeliveryTag, false);
+                }
+                catch (Exception ex)
+                {
+                    _log.Error(ex, "Error processing message in {Consumer}", GetType().Name);
+                    // Nack and requeue once; after that it goes to DLX
+                    await _channel.BasicNackAsync(ea.DeliveryTag, false, requeue: false);
+                }
+            };
+
+            _channel.BasicConsumeAsync(queueName, autoAck: false, consumer: consumer).GetAwaiter().GetResult();
+            _log.Information("{Consumer} started listening on queue {Queue}", GetType().Name, queueName);
+        }
+
+        protected abstract void Handle(T message);
+
+        public void Dispose()
+        {
+            _channel?.CloseAsync().GetAwaiter().GetResult();
+            _connection?.CloseAsync().GetAwaiter().GetResult();
+        }
+    }
+}

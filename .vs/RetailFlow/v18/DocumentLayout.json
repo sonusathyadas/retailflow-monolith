@@ -1,0 +1,249 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|c:\\users\\sonusathyadas\\desktop\\modernization\\app\\retailflow\\src\\retailflow.api\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|solutionrelative:src\\retailflow.api\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.api\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|solutionrelative:src\\retailflow.api\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.api\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|solutionrelative:src\\retailflow.api\\controllers\\orderscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.api\\middleware\\requestloggingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|solutionrelative:src\\retailflow.api\\middleware\\requestloggingmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|c:\\users\\sonusathyadas\\desktop\\modernization\\app\\retailflow\\src\\retailflow.api\\app_start\\autofacconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}|src\\RetailFlow.API\\RetailFlow.API.csproj|solutionrelative:src\\retailflow.api\\app_start\\autofacconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3D4E5F6-A7B8-9012-CDEF-123456789012}|src\\RetailFlow.Application\\RetailFlow.Application.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.application\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3D4E5F6-A7B8-9012-CDEF-123456789012}|src\\RetailFlow.Application\\RetailFlow.Application.csproj|solutionrelative:src\\retailflow.application\\services\\paymentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3D4E5F6-A7B8-9012-CDEF-123456789012}|src\\RetailFlow.Application\\RetailFlow.Application.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.application\\services\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3D4E5F6-A7B8-9012-CDEF-123456789012}|src\\RetailFlow.Application\\RetailFlow.Application.csproj|solutionrelative:src\\retailflow.application\\services\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.infrastructure\\redis\\rediscacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|solutionrelative:src\\retailflow.infrastructure\\redis\\rediscacheservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6A7B8C9-D0E1-2345-F012-456789012345}|src\\RetailFlow.Messaging\\RetailFlow.Messaging.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.messaging\\consumers\\baseconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6A7B8C9-D0E1-2345-F012-456789012345}|src\\RetailFlow.Messaging\\RetailFlow.Messaging.csproj|solutionrelative:src\\retailflow.messaging\\consumers\\baseconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.infrastructure\\migrations\\configuration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|solutionrelative:src\\retailflow.infrastructure\\migrations\\configuration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6A7B8C9-D0E1-2345-F012-456789012345}|src\\RetailFlow.Messaging\\RetailFlow.Messaging.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.messaging\\publishers\\rabbitmqeventpublisher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6A7B8C9-D0E1-2345-F012-456789012345}|src\\RetailFlow.Messaging\\RetailFlow.Messaging.csproj|solutionrelative:src\\retailflow.messaging\\publishers\\rabbitmqeventpublisher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.infrastructure\\data\\retailflowdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|solutionrelative:src\\retailflow.infrastructure\\data\\retailflowdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.infrastructure\\mongo\\mongodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|solutionrelative:src\\retailflow.infrastructure\\mongo\\mongodbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\retailflow.infrastructure\\mongo\\cartdocument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D4E5F6A7-B8C9-0123-DEF0-234567890123}|src\\RetailFlow.Infrastructure\\RetailFlow.Infrastructure.csproj|solutionrelative:src\\retailflow.infrastructure\\mongo\\cartdocument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\Web.config",
+              "RelativeDocumentMoniker": "src\\RetailFlow.API\\Web.config",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\Web.config",
+              "RelativeToolTip": "src\\RetailFlow.API\\Web.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2026-05-18T04:46:27.82Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PaymentsController.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\Controllers\\PaymentsController.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.API\\Controllers\\PaymentsController.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\Controllers\\PaymentsController.cs",
+              "RelativeToolTip": "src\\RetailFlow.API\\Controllers\\PaymentsController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:43:54.574Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrdersController.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\Controllers\\OrdersController.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.API\\Controllers\\OrdersController.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\Controllers\\OrdersController.cs",
+              "RelativeToolTip": "src\\RetailFlow.API\\Controllers\\OrdersController.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:43:45.084Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RequestLoggingMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\Middleware\\RequestLoggingMiddleware.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.API\\Middleware\\RequestLoggingMiddleware.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\Middleware\\RequestLoggingMiddleware.cs",
+              "RelativeToolTip": "src\\RetailFlow.API\\Middleware\\RequestLoggingMiddleware.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:43:35.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AutofacConfig.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\App_Start\\AutofacConfig.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.API\\App_Start\\AutofacConfig.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.API\\App_Start\\AutofacConfig.cs",
+              "RelativeToolTip": "src\\RetailFlow.API\\App_Start\\AutofacConfig.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAArwCUAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:43:32.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PaymentService.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Application\\Services\\PaymentService.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Application\\Services\\PaymentService.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Application\\Services\\PaymentService.cs",
+              "RelativeToolTip": "src\\RetailFlow.Application\\Services\\PaymentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:32:58.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CartService.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Application\\Services\\CartService.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Application\\Services\\CartService.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Application\\Services\\CartService.cs",
+              "RelativeToolTip": "src\\RetailFlow.Application\\Services\\CartService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:32:58.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RabbitMqEventPublisher.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Messaging\\Publishers\\RabbitMqEventPublisher.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Messaging\\Publishers\\RabbitMqEventPublisher.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Messaging\\Publishers\\RabbitMqEventPublisher.cs",
+              "RelativeToolTip": "src\\RetailFlow.Messaging\\Publishers\\RabbitMqEventPublisher.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAywAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:28:01.568Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Configuration.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Migrations\\Configuration.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Infrastructure\\Migrations\\Configuration.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Migrations\\Configuration.cs",
+              "RelativeToolTip": "src\\RetailFlow.Infrastructure\\Migrations\\Configuration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:27:07.336Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BaseConsumer.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Messaging\\Consumers\\BaseConsumer.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Messaging\\Consumers\\BaseConsumer.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Messaging\\Consumers\\BaseConsumer.cs",
+              "RelativeToolTip": "src\\RetailFlow.Messaging\\Consumers\\BaseConsumer.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:20:47.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RedisCacheService.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Redis\\RedisCacheService.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Infrastructure\\Redis\\RedisCacheService.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Redis\\RedisCacheService.cs",
+              "RelativeToolTip": "src\\RetailFlow.Infrastructure\\Redis\\RedisCacheService.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAuwCcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:19:46.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "MongoDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Mongo\\MongoDbContext.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Infrastructure\\Mongo\\MongoDbContext.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Mongo\\MongoDbContext.cs",
+              "RelativeToolTip": "src\\RetailFlow.Infrastructure\\Mongo\\MongoDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:19:19.681Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CartDocument.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Mongo\\CartDocument.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Infrastructure\\Mongo\\CartDocument.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Mongo\\CartDocument.cs",
+              "RelativeToolTip": "src\\RetailFlow.Infrastructure\\Mongo\\CartDocument.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:18:54.326Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RetailFlowDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Data\\RetailFlowDbContext.cs",
+              "RelativeDocumentMoniker": "src\\RetailFlow.Infrastructure\\Data\\RetailFlowDbContext.cs",
+              "ToolTip": "C:\\Users\\sonusathyadas\\Desktop\\Modernization\\App\\RetailFlow\\src\\RetailFlow.Infrastructure\\Data\\RetailFlowDbContext.cs",
+              "RelativeToolTip": "src\\RetailFlow.Infrastructure\\Data\\RetailFlowDbContext.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAEBBwEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-18T04:17:35.212Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

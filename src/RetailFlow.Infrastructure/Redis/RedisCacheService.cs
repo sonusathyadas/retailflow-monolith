@@ -1,0 +1,77 @@
+using System;
+
+using Newtonsoft.Json;
+using Serilog;
+using StackExchange.Redis;
+
+namespace RetailFlow.Infrastructure.Redis
+{
+    /// <summary>
+    /// Redis-backed cache service using StackExchange.Redis.
+    /// Used for product catalog caching, user sessions, and shopping carts.
+    /// </summary>
+    public class RedisCacheService : ICacheService
+    {
+        private readonly IDatabase _db;
+        private static readonly ILogger _log = Log.ForContext<RedisCacheService>();
+
+        public RedisCacheService(string connectionString)
+        {
+            var connection = ConnectionMultiplexer.Connect(connectionString);
+            _db = connection.GetDatabase();
+        }
+
+        public T Get<T>(string key)
+        {
+            try
+            {
+                var value = _db.StringGet(key);
+                if (!value.HasValue) return default(T);
+                return JsonConvert.DeserializeObject<T>(value);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex, "Redis GET failed for key {Key}", key);
+                return default(T);
+            }
+        }
+
+        public void Set<T>(string key, T value, TimeSpan? expiry = null)
+        {
+            try
+            {
+                var serialized = JsonConvert.SerializeObject(value);
+                _db.StringSet(key, serialized, expiry.HasValue ? expiry.Value : (TimeSpan?)null, When.Always);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex, "Redis SET failed for key {Key}", key);
+            }
+        }
+
+        public void Remove(string key)
+        {
+            try
+            {
+                _db.KeyDelete(key);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex, "Redis DELETE failed for key {Key}", key);
+            }
+        }
+
+        public bool Exists(string key)
+        {
+            try
+            {
+                return _db.KeyExists(key);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex, "Redis EXISTS failed for key {Key}", key);
+                return false;
+            }
+        }
+    }
+}

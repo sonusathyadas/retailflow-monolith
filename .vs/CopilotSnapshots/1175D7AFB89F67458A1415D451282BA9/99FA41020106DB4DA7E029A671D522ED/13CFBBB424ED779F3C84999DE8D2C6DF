@@ -1,0 +1,70 @@
+﻿using System;
+using System.Text;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using Serilog;
+
+namespace RetailFlow.Messaging.Consumers
+{
+    /// <summary>
+    /// Base class for RabbitMQ consumers.
+    /// Handles connection setup, queue binding, and message deserialization.
+    /// </summary>
+    public abstract class BaseConsumer<T> : IDisposable where T : class
+    {
+        private readonly IConnection _connection;
+        private readonly IModel _channel;
+        private const string ExchangeName = "retailflow.events";
+        private static readonly ILogger _log = Log.ForContext<BaseConsumer<T>>();
+
+        protected BaseConsumer(string connectionString, string queueName)
+        {
+            var factory = new ConnectionFactory { Uri = new Uri(connectionString) };
+            _connection = factory.CreateConnection();
+            _channel = _connection.CreateModel();
+
+            _channel.ExchangeDeclare(ExchangeName, ExchangeType.Topic, durable: true);
+
+            // Declare a durable queue with dead-letter exchange support
+            var args = new System.Collections.Generic.Dictionary<string, object>
+            {
+                { "x-dead-letter-exchange", ExchangeName + ".dlx" }
+            };
+            _channel.QueueDeclare(queueName, durable: true, exclusive: false, autoDelete: false, arguments: args);
+            _channel.QueueBind(queueName, ExchangeName, typeof(T).Name);
+
+            // Prefetch 1 for fair dispatch
+            _channel.BasicQos(0, 1, false);
+
+            var consumer = new EventingBasicConsumer(_channel);
+            consumer.Received += (sender, ea) =>
+            {
+                try
+                {
+                    var json = Encoding.UTF8.GetString(ea.Body.ToArray());
+                    var message = JsonConvert.DeserializeObject<T>(json);
+                    Handle(message);
+                    _channel.BasicAck(ea.DeliveryTag, false);
+                }
+                catch (Exception ex)
+                {
+                    _log.Error(ex, "Error processing message in {Consumer}", GetType().Name);
+                    // Nack and requeue once; after that it goes to DLX
+                    _channel.BasicNack(ea.DeliveryTag, false, requeue: false);
+                }
+            };
+
+            _channel.BasicConsume(queueName, autoAck: false, consumer: consumer);
+            _log.Information("{Consumer} started listening on queue {Queue}", GetType().Name, queueName);
+        }
+
+        protected abstract void Handle(T message);
+
+        public void Dispose()
+        {
+            _channel?.Close();
+            _connection?.Close();
+        }
+    }
+}

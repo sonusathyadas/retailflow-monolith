@@ -1,0 +1,108 @@
+﻿using System;
+using System.Linq;
+using MongoDB.Driver;
+using RetailFlow.Application.DTOs;
+using RetailFlow.Infrastructure.Mongo;
+using Serilog;
+
+namespace RetailFlow.Application.Services
+{
+    /// <summary>
+    /// Cart service backed by MongoDB for flexible, schema-less cart storage.
+    /// </summary>
+    public class CartService : ICartService
+    {
+        private readonly IMongoCollection<CartDocument> _carts;
+        private readonly IProductService _productService;
+        private static readonly ILogger _log = Log.ForContext<CartService>();
+
+        public CartService(MongoDbContext mongo, IProductService productService)
+        {
+            _carts = mongo.GetCollection<CartDocument>("carts");
+            _productService = productService;
+        }
+
+        public CartDto GetCart(int userId)
+        {
+            var cart = _carts.Find(c => c.UserId == userId).FirstOrDefault();
+            return cart == null ? new CartDto { UserId = userId } : MapToDto(cart);
+        }
+
+        public CartDto AddItem(int userId, AddCartItemRequest request)
+        {
+            var product = _productService.GetById(request.ProductId);
+            if (product == null)
+                throw new KeyNotFoundException($"Product {request.ProductId} not found.");
+
+            var cart = _carts.Find(c => c.UserId == userId).FirstOrDefault();
+
+            if (cart == null)
+            {
+                cart = new CartDocument { UserId = userId };
+            }
+
+            var existing = cart.Items.FirstOrDefault(i => i.ProductId == request.ProductId);
+            if (existing != null)
+            {
+                existing.Quantity += request.Quantity;
+            }
+            else
+            {
+                cart.Items.Add(new CartItemDocument
+                {
+                    ProductId = request.ProductId,
+                    ProductName = product.Name,
+                    Price = product.Price,
+                    Quantity = request.Quantity
+                });
+            }
+
+            cart.UpdatedAt = DateTime.UtcNow;
+
+            var options = new ReplaceOptions { IsUpsert = true };
+            _carts.ReplaceOne(c => c.UserId == userId, cart, options);
+
+            _log.Information("Added {Qty}x {ProductId} to cart for user {UserId}",
+                request.Quantity, request.ProductId, userId);
+
+            return MapToDto(cart);
+        }
+
+        public CartDto RemoveItem(int userId, string productId)
+        {
+            var cart = _carts.Find(c => c.UserId == userId).FirstOrDefault();
+            if (cart == null) return new CartDto { UserId = userId };
+
+            cart.Items.RemoveAll(i => i.ProductId == productId);
+            cart.UpdatedAt = DateTime.UtcNow;
+
+            _carts.ReplaceOne(c => c.UserId == userId, cart);
+            return MapToDto(cart);
+        }
+
+        public void ClearCart(int userId)
+        {
+            _carts.DeleteOne(c => c.UserId == userId);
+            _log.Information("Cart cleared for user {UserId}", userId);
+        }
+
+        private static CartDto MapToDto(CartDocument cart)
+        {
+            var items = cart.Items.Select(i => new CartItemDto
+            {
+                ProductId = i.ProductId,
+                ProductName = i.ProductName,
+                Price = i.Price,
+                Quantity = i.Quantity
+            }).ToList();
+
+            return new CartDto
+            {
+                UserId = cart.UserId,
+                Items = items,
+                TotalPrice = items.Sum(i => i.Price * i.Quantity),
+                UpdatedAt = cart.UpdatedAt
+            };
+        }
+    }
+}

@@ -1,0 +1,26 @@
+﻿using System.Data.Entity.Migrations;
+using RetailFlow.Domain.Entities;
+using RetailFlow.Infrastructure.Data;
+
+namespace RetailFlow.Infrastructure.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<RetailFlowDbContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+            ContextKey = "RetailFlow.Infrastructure.Data.RetailFlowDbContext";
+        }
+
+        protected override void Seed(RetailFlowDbContext context)
+        {
+            context.Roles.AddOrUpdate(
+                r => r.Id,
+                new Role { Id = 1, Name = "Customer" },
+                new Role { Id = 2, Name = "Admin" },
+                new Role { Id = 3, Name = "WarehouseManager" },
+                new Role { Id = 4, Name = "FinanceManager" }
+            );
+        }
+    }
+}

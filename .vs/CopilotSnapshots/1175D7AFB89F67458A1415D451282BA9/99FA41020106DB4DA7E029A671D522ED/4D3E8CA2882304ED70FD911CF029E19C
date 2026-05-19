@@ -1,0 +1,20 @@
+﻿using System.Data.Entity.Migrations;
+using RetailFlow.Infrastructure.Data;
+
+namespace RetailFlow.Infrastructure.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<RetailFlowDbContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = false;
+            ContextKey = "RetailFlow.Infrastructure.Data.RetailFlowDbContext";
+        }
+
+        protected override void Seed(RetailFlowDbContext context)
+        {
+            // Roles are seeded via HasData in OnModelCreating.
+            // Additional seed data can be added here for development.
+        }
+    }
+}

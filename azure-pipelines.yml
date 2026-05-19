@@ -1,0 +1,145 @@
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    exclude:
+      - docs/**
+      - '*.md'
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:
+  solution:        'RetailFlow.sln'
+  buildPlatform:   'Any CPU'
+  buildConfiguration: 'Release'
+  azureSubscription: 'RetailFlow-Azure-ServiceConnection'
+  appServiceName:  'retailflow-api'
+  resourceGroup:   'rg-retailflow-prod'
+
+pool:
+  vmImage: 'windows-latest'
+
+stages:
+
+# ── Stage 1: Build & Test ──────────────────────────────────────────────────
+- stage: Build
+  displayName: 'Build and Test'
+  jobs:
+  - job: BuildJob
+    displayName: 'Build, Test, Publish'
+    steps:
+
+    - task: NuGetToolInstaller@1
+      displayName: 'Install NuGet'
+
+    - task: NuGetCommand@2
+      displayName: 'Restore NuGet Packages'
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: VSBuild@1
+      displayName: 'Build Solution'
+      inputs:
+        solution:      '$(solution)'
+        platform:      '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+        msbuildArgs:   '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+
+    - task: VSTest@2
+      displayName: 'Run Unit Tests'
+      inputs:
+        testSelector:        'testAssemblies'
+        testAssemblyVer2:    '**\*UnitTests*.dll'
+        searchFolder:        '$(System.DefaultWorkingDirectory)'
+        platform:            '$(buildPlatform)'
+        configuration:       '$(buildConfiguration)'
+        codeCoverageEnabled: true
+
+    - task: PublishTestResults@2
+      displayName: 'Publish Test Results'
+      inputs:
+        testResultsFormat: 'VSTest'
+        testResultsFiles:  '**/*.trx'
+
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish Code Coverage'
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)\**\coverage.cobertura.xml'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName:  'drop'
+
+# ── Stage 2: Deploy to Staging ─────────────────────────────────────────────
+- stage: DeployStaging
+  displayName: 'Deploy to Staging'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: DeployStaging
+    displayName: 'Deploy to Azure App Service (Staging)'
+    environment: 'staging'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy to App Service Staging Slot'
+            inputs:
+              ConnectionType:    'AzureRM'
+              azureSubscription: '$(azureSubscription)'
+              appType:           'webApp'
+              WebAppName:        '$(appServiceName)'
+              deployToSlotOrASE: true
+              ResourceGroupName: '$(resourceGroup)'
+              SlotName:          'staging'
+              packageForLinux:   '$(Pipeline.Workspace)/drop/**/*.zip'
+
+          - task: AzureAppServiceManage@0
+            displayName: 'Run Database Migrations'
+            inputs:
+              azureSubscription: '$(azureSubscription)'
+              Action:            'Start Azure App Service'
+              WebAppName:        '$(appServiceName)'
+              SpecifySlotOrASE:  true
+              ResourceGroupName: '$(resourceGroup)'
+              Slot:              'staging'
+
+# ── Stage 3: Deploy to Production ─────────────────────────────────────────
+- stage: DeployProduction
+  displayName: 'Deploy to Production'
+  dependsOn: DeployStaging
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployProduction
+    displayName: 'Deploy to Azure App Service (Production)'
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureAppServiceManage@0
+            displayName: 'Swap Staging → Production'
+            inputs:
+              azureSubscription:    '$(azureSubscription)'
+              Action:               'Swap Slots'
+              WebAppName:           '$(appServiceName)'
+              ResourceGroupName:    '$(resourceGroup)'
+              SourceSlot:           'staging'
+              SwapWithProduction:   true
+
+          - task: AzureAppServiceManage@0
+            displayName: 'Smoke Test Production'
+            inputs:
+              azureSubscription: '$(azureSubscription)'
+              Action:            'Start Azure App Service'
+              WebAppName:        '$(appServiceName)'
+              ResourceGroupName: '$(resourceGroup)'

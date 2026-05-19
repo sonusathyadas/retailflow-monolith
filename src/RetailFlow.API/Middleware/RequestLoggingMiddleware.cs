@@ -1,0 +1,50 @@
+using System;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Http.ExceptionHandling;
+using Serilog;
+
+namespace RetailFlow.API.Middleware
+{
+    /// <summary>
+    /// Logs every incoming HTTP request with method, path, status code, and duration.
+    /// Designed for Azure Application Insights compatibility.
+    /// </summary>
+    public class RequestLoggingHandler : System.Net.Http.DelegatingHandler
+    {
+        private static readonly ILogger _log = Log.ForContext<RequestLoggingHandler>();
+
+        protected override async Task<System.Net.Http.HttpResponseMessage> SendAsync(
+            System.Net.Http.HttpRequestMessage request,
+            CancellationToken cancellationToken)
+        {
+            var sw = Stopwatch.StartNew();
+            var correlationId = Guid.NewGuid().ToString("N").Substring(0, 8);
+
+            _log.Information("[{CorrelationId}] --> {Method} {Path}",
+                correlationId, request.Method, request.RequestUri.PathAndQuery);
+
+            System.Net.Http.HttpResponseMessage response;
+            try
+            {
+                response = await base.SendAsync(request, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex, "[{CorrelationId}] Unhandled exception", correlationId);
+                throw;
+            }
+
+            sw.Stop();
+            _log.Information("[{CorrelationId}] <-- {StatusCode} {Method} {Path} in {ElapsedMs}ms",
+                correlationId,
+                (int)response.StatusCode,
+                request.Method,
+                request.RequestUri.PathAndQuery,
+                sw.ElapsedMilliseconds);
+
+            return response;
+        }
+    }
+}
